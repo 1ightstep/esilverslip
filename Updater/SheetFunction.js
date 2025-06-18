@@ -1,7 +1,7 @@
 function getFormID() {
   let sheetId = SpreadsheetApp.getActive().getId();
   Logger.log("Form ID: " + sheetId);
-  return sheetID;
+  return sheetId;
 }
 
 function saveSettings() {
