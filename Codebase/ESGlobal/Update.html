@@ -1,0 +1,64 @@
+<DOCTYPE! html />
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        padding: 1rem;
+        margin: 0;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .intro {
+        height: auto;
+        width: auto;
+      }
+      .intro h1 {
+        font-family: Helvetica, -apple-system;
+        font-weight: 200;
+      }
+      .instructions-container {
+        width: fit-content;
+        border: 1px solid rgb(0, 0, 0, 0.2);
+        padding: 2rem 5rem 2rem 5rem;
+        border-radius: 1rem;
+      }
+      .instructions {
+        height: 100%;
+      }
+      .instructions h1 {
+        font-size: 2rem;
+        font-family: Helvetica, -apple-system;
+        font-weight: 200;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="intro">
+      <h1>
+        Hello
+        <?= name ?>,<br />we've updated your ET spreadsheet.
+        <br />
+        New spreadsheet url:
+        <?= url?>
+        <br />
+        <br />
+        Please follow the instructions.
+      </h1>
+    </div>
+    <div class="instructions-container">
+      <div class="instructions">
+        <h1>Instructions:</h1>
+      </div>
+      <div class="instructions">
+        <h1>1. Disregard the old spreadsheet.</h1>
+        <h1>2. Open the new, recently-shared spreadsheet.</h1>
+        <h1>3. Configure and save your settings immediately.</h1>
+        <h1>4. Contact me if you have any issues.</h1>
+      </div>
+    </div>
+  </body>
+  <html />
+</html>
