@@ -10,15 +10,5 @@ function rejectStudent(email, homeroom, destination, reason) {
   //destination teacher curr students --;
   ESGlobal.accessTeacherDB().changeCurrentStudent(destinationTeacher, -1);
 
-  //if student wasn't pending, we can remove student from homeroom teacher
-  if (ESGlobal.accessStudentDB().getData(email)[5] != "_PENDING_") {
-    range = homeTeacherSheet.getDataRange();
-    values = range.getValues();
-    rowSelect = 2;
-    while (values[rowSelect][1] && values[rowSelect][2] != email) {
-      rowSelect++;
-    }
-    rowRange = homeTeacherSheet.getRange(rowSelect + 1, 2, 1, 4);
-    rowRange.setValues([["", "", "", ""]]);
-  }
+  //handleSubmitted auto removes student from homeroom teacher
 }
