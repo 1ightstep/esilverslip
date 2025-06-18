@@ -17,11 +17,10 @@ function getStudentDatabaseId() {
 }
 
 function getRequestForm() {
-  //the bound code btw, not the form itself
   return FormApp.openById(getRequestFormId());
 }
 function getRequestFormId() {
-  return "1wit2Ynib-NE1263qxTeO7dLg0d6zge4w7y4rdgtBLsD-lMBrWWBnqmmu";
+  return "1kQRi6xMxOI9fbBLFIm5_K93RfD_O9cCfR0FBtbQvPp0";
 }
 
 function getUpdaterTemplate() {
