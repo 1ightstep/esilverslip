@@ -96,6 +96,8 @@ class TeacherDatabase {
         .getRange(targetRow, 1, 1, this.db.getLastColumn())
         .setValues([newData]);
     }
+
+    ESRequestForm.updateFormItems();
   }
 
   getData(formName) {
