@@ -10,6 +10,25 @@ function pendingAccept(teacherBundle, studentBundle) {
   while (values[rowSelect][1] != "") {
     rowSelect++;
   }
+
+  //if rowSelect is greater than max rows, append a new row
+  if (rowSelect > destTeacherSheet.getMaxRows() - 1) {
+    let example = destTeacherSheet.getRange(
+      destTeacherSheet.getLastRow(),
+      1,
+      1,
+      destTeacherSheet.getLastColumn()
+    );
+    destTeacherSheet.appendRow([destTeacherSheet.getLastRow() - 1]);
+    let newRow = destTeacherSheet.getRange(
+      destTeacherSheet.getLastRow(),
+      1,
+      1,
+      destTeacherSheet.getLastColumn()
+    );
+    example.copyTo(newRow, { formatOnly: true });
+  }
+
   let rowRange = destTeacherSheet.getRange(rowSelect + 1, 2, 1, 6);
   rowRange.setValues([
     [
