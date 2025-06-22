@@ -41,7 +41,7 @@ function pendingAccept(teacherBundle, studentBundle) {
     ],
   ]);
 
-  //currStudents ++ regardless if pending accept to make sure teachers decide for students before more students are added
+  //currStudents ++ regardless
   ESGlobal.accessTeacherDB().changeCurrentStudent(teacherBundle.destTeacher, 1);
 
   //add student to student database
