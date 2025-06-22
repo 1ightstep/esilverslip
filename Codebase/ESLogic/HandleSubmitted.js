@@ -36,4 +36,14 @@ function handleSubmitted(
   }
   rowRange = homeTeacherSheet.getRange(rowSelect + 1, 2, 1, 4);
   rowRange.setValues([["", "", "", ""]]);
+
+  //updates student database
+  ESGlobal.accessStudentDB().updateData(
+    email,
+    studentBundle.name,
+    studentBundle.homeroom,
+    studentBundle.destination,
+    studentBundle.purpose,
+    "_PENDING_"
+  );
 }

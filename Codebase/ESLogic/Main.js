@@ -28,10 +28,13 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
     homeTeacher: homeroomTeacher,
   };
 
-  let alreadySubmit = ESGlobal.accessStudentDB().getData(email); //use getData here since dataExists can return -1 which results in error
-  if (alreadySubmit) {
-    if (alreadySubmit[3] == destination) return;
+  let alreadySubmit = ESGlobal.accessStudentDB().dataExists(email); //use data exists to ensure data exists, difficulty persists with getData
+  if (alreadySubmit != -1) {
+    if (alreadySubmit[2] == homeroom && alreadySubmit[3] == destination)
+      //prevents spam
+      return;
     if (alreadySubmit[5] != "_PENDING_" && alreadySubmit[5] != "_ACCEPTED_")
+      //if teacher requested
       return;
     else {
       handleSubmitted(alreadySubmit, studentBundle);
@@ -46,5 +49,6 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
   } else if (isSubstitute) {
     rejectStudent(teacherBundle, studentBundle);
   }
+
   pendingAccept(teacherBundle, studentBundle);
 }
