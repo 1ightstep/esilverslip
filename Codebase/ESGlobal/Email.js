@@ -26,7 +26,7 @@ function sendAcceptEmail(recipientEmail, studentName, destination, homeroom) {
 
   GmailApp.sendEmail(
     recipientEmail,
-    `✅ Pass Approved for ${studentName}`,
+    `✅ Pass Approved For ${studentName}`,
     "",
     {
       htmlBody: htmlBody,
@@ -48,7 +48,7 @@ function sendRejectEmail(recipientEmail, studentName, destination, reason) {
 
   GmailApp.sendEmail(
     recipientEmail,
-    `❌ Pass Rejected for ${studentName}`,
+    `❌ Pass Rejected For ${studentName}`,
     "",
     {
       htmlBody: htmlBody,
@@ -66,7 +66,12 @@ function updateHTML(teacherName, newSSUrl) {
 function sendUpdateEmail(recipientEmail, teacherName, newSSUrl) {
   const htmlBody = updateHTML(teacherName, newSSUrl);
 
-  GmailApp.sendEmail(recipientEmail, `Your Settings Were Updated`, "", {
-    htmlBody: htmlBody,
-  });
+  GmailApp.sendEmail(
+    recipientEmail,
+    `Your ET Sheet Was Updated, Please Follow The Instructions`,
+    "",
+    {
+      htmlBody: htmlBody,
+    }
+  );
 }
