@@ -8,10 +8,10 @@ class StudentDatabase {
     const targetRow = data.findIndex((row) => row[0] === email) + 2; //+2 since getAllValues() starts grabbing @ row 2
 
     const newData = [email, name, homeroom, destination, purpose, status];
-
+    Logger.log(targetRow);
     if (targetRow >= 2) {
       this.db
-        .getRange(targetRow + 1, 1, 1, this.db.getLastColumn())
+        .getRange(targetRow, 1, 1, this.db.getLastColumn())
         .setValues([newData]);
     } else {
       this.addData(email, name, homeroom, destination, purpose, status);
@@ -20,6 +20,18 @@ class StudentDatabase {
 
   addData(email, name, homeroom, destination, purpose, status) {
     this.db.appendRow([email, name, homeroom, destination, purpose, status]);
+  }
+
+  setData(prevEmail, { email, name, homeroom, destination, purpose, status }) {
+    const data = this.getAllValues();
+    const targetRow = data.findIndex((row) => row[0] === prevEmail) + 2; //+2 since getAllValues() starts grabbing @ row 2
+    if (targetRow >= 2) {
+      Logger.log(targetRow);
+      const newData = [email, name, homeroom, destination, purpose, status];
+      this.db
+        .getRange(targetRow, 1, 1, this.db.getLastColumn())
+        .setValues([newData]);
+    }
   }
 
   getData(email) {
