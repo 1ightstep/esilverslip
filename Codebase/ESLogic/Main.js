@@ -1,7 +1,6 @@
 function onStudentSubmit(email, name, homeroom, destination, purpose) {
-  const homeroomTeacher = homeroom.split(" ")[0] + " " + homeroom.split(" ")[1]; //potential bug
-  const destinationTeacher =
-    destination.split(" ")[0] + " " + destination.split(" ")[1]; //potential bug
+  const homeroomTeacher = homeroom.split(" @ ")[0];
+  const destinationTeacher = destination.split(" @ ")[0];
 
   const homeTeacherData = ESGlobal.accessTeacherDB().getData(homeroomTeacher);
   const destTeacherData =
@@ -29,26 +28,30 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
   };
 
   let alreadySubmit = ESGlobal.accessStudentDB().dataExists(email); //use data exists to ensure data exists, difficulty persists with getData
-  if (alreadySubmit != -1) {
-    if (alreadySubmit[2] == homeroom && alreadySubmit[3] == destination)
-      //prevents spam
+  if (alreadySubmit) {
+    //prevents spam
+    if (alreadySubmit[2] == homeroom && alreadySubmit[3] == destination) {
       return;
-    if (alreadySubmit[5] != "_PENDING_" && alreadySubmit[5] != "_ACCEPTED_")
-      //if teacher requested
-      return;
-    else {
-      handleSubmitted(alreadySubmit, studentBundle);
+    }
+    //teacher requested the student-> can't make another request
+    if (alreadySubmit[5] != "_PENDING_" && alreadySubmit[5] != "_ACCEPTED_") {
+      ESGlobal.handleReject(
+        teacherBundle,
+        studentBundle,
+        "You are requested by " + alreadySubmit[5]
+      );
+    } else {
+      ESGlobal.handleSubmitted(alreadySubmit);
     }
   }
 
   if (isAuto) {
     let isFull = ESGlobal.accessTeacherDB().isTeacherFull(destinationTeacher);
     if (isFull) {
-      rejectStudent(teacherBundle, studentBundle);
+      ESGlobal.handleReject(teacherBundle, studentBundle, "Full room");
     }
   } else if (isSubstitute) {
-    rejectStudent(teacherBundle, studentBundle);
+    ESGlobal.handleReject(teacherBundle, studentBundle, "Teacher absent");
   }
-
-  pendingAccept(teacherBundle, studentBundle);
+  ESGlobal.handlePending(teacherBundle, studentBundle);
 }

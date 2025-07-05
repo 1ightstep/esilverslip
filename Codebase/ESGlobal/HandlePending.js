@@ -1,4 +1,4 @@
-function pendingAccept(teacherBundle, studentBundle) {
+function handlePending(teacherBundle, studentBundle) {
   const destTeacherSheet = SpreadsheetApp.openById(
     teacherBundle.destSheetId
   ).getSheetByName("Incoming");
@@ -6,11 +6,11 @@ function pendingAccept(teacherBundle, studentBundle) {
   //add student to destTeacherSheet, keep accepted false
   let range = destTeacherSheet.getDataRange();
   let values = range.getValues();
+
   let rowSelect = 2;
-  while (values[rowSelect][1] != "") {
+  while (rowSelect < values.length && !values[rowSelect][1]) {
     rowSelect++;
   }
-
   //if rowSelect is greater than max rows, append a new row
   if (rowSelect > destTeacherSheet.getMaxRows() - 1) {
     let example = destTeacherSheet.getRange(

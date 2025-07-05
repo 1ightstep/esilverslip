@@ -1,6 +1,5 @@
 function getFormID() {
   let sheetId = SpreadsheetApp.getActive().getId();
-  Logger.log("Form ID: " + sheetId);
   return sheetId;
 }
 
@@ -65,3 +64,41 @@ function generateSequence(length) {
   }
   return sequence;
 }
+
+function submitAdmissions() {
+  let incSheet = SpreadsheetApp.getActive().getSheetByName("Incoming");
+  let setSheet = SpreadsheetApp.getActive().getSheetByName("Settings");
+  let setName = setSheet.getRange("C2").getValue();
+  let setRoom = setSheet.getRange("C3").getValue();
+
+  let range = incSheet.getRange("B3:F" + incSheet.getLastRow());
+  let data = range.getValues();
+
+  data.forEach((student) => {
+    if (student[0]) {
+      const studentBundle = {
+        email: student[0],
+        name: student[1],
+        homeroom: student[2],
+        destination: setName + " @ " + setRoom,
+        purpose: student[3],
+      };
+      const teacherBundle = {
+        destSheetId: getFormID(),
+        destTeacher: setName,
+        homeSheetId: ESGlobal.accessTeacherDB().getData(
+          student[2].split(" @ ")[0]
+        )[0],
+        homeTeacher: student[2].split(" @ ")[0],
+      };
+
+      if (student[4]) {
+        acceptStudent(teacherBundle, studentBundle);
+      } else {
+        rejectStudent(teacherBundle, studentBundle);
+      }
+    }
+  });
+}
+
+function submitAbscences() {}
