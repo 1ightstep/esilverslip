@@ -26,8 +26,8 @@ function updater() {
         substituteMode: info[5],
         maxAdditions: info[6],
       });
+
       newSS.addEditor(info[3]);
-      newSS.ad;
       ESGlobal.sendUpdateEmail(info[3], info[1], newSS.getUrl());
 
       Logger.log(`${newName} has been updated.`);
