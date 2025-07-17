@@ -8,7 +8,7 @@ function handlePending(teacherBundle, studentBundle) {
   let values = range.getValues();
 
   let rowSelect = 2;
-  while (rowSelect < values.length && !values[rowSelect][1]) {
+  while (rowSelect < values.length && values[rowSelect][1] != "") {
     rowSelect++;
   }
   //if rowSelect is greater than max rows, append a new row
@@ -42,10 +42,10 @@ function handlePending(teacherBundle, studentBundle) {
   ]);
 
   //currStudents ++ regardless
-  ESGlobal.accessTeacherDB().changeCurrentStudent(teacherBundle.destTeacher, 1);
+  accessTeacherDB().changeCurrentStudent(teacherBundle.destTeacher, 1);
 
   //add student to student database
-  ESGlobal.accessStudentDB().updateData(
+  accessStudentDB().updateData(
     studentBundle.email,
     studentBundle.name,
     studentBundle.homeroom,

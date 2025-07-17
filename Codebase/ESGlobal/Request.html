@@ -1,0 +1,41 @@
+<DOCTYPE! html />
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        padding: 1rem;
+        margin: 0;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .intro {
+        height: auto;
+        width: auto;
+      }
+      .intro h1 {
+        font-family: Helvetica, -apple-system;
+        font-weight: 200;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="intro">
+      <h1>
+        Hello
+        <?= studentGmail ?>,<br />
+        <?= teacherGmail ?>
+        has requested for you.
+        <br />
+        <br />
+        Please fill out the ESilverSlip Form.
+        <br />
+        <br />
+        https://tinyurl.com/esilverslip-form
+      </h1>
+    </div>
+  </body>
+  <html />
+</html>
