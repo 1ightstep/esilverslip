@@ -75,3 +75,18 @@ function sendUpdateEmail(recipientEmail, teacherName, newSSUrl) {
     }
   );
 }
+
+function requestHTML(studentGmail, teacherGmail) {
+  const template = HtmlService.createTemplateFromFile("Request");
+  template.studentGmail = studentGmail;
+  template.teacherGmail = teacherGmail;
+
+  return template.evaluate().getContent();
+}
+function sendRequestEmail(studentGmail, teacherGmail) {
+  const htmlBody = requestHTML(studentGmail, teacherGmail);
+
+  GmailApp.sendEmail(studentGmail, `‼️ Teacher Request ‼️`, "", {
+    htmlBody: htmlBody,
+  });
+}

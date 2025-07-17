@@ -71,14 +71,14 @@ function submitAdmissions() {
   let setName = setSheet.getRange("C2").getValue();
   let setRoom = setSheet.getRange("C3").getValue();
 
-  let range = incSheet.getRange("B3:F" + incSheet.getLastRow());
+  let range = incSheet.getRange("B3:G" + incSheet.getLastRow());
   let data = range.getValues();
 
-  data.forEach((student) => {
+  data.forEach((student, index) => {
     if (student[0]) {
       const studentBundle = {
-        email: student[0],
-        name: student[1],
+        email: student[1],
+        name: student[0],
         homeroom: student[2],
         destination: setName + " @ " + setRoom,
         purpose: student[3],
@@ -93,12 +93,53 @@ function submitAdmissions() {
       };
 
       if (student[4]) {
-        acceptStudent(teacherBundle, studentBundle);
+        ESGlobal.handleAccept(teacherBundle, studentBundle);
       } else {
-        rejectStudent(teacherBundle, studentBundle);
+        ESGlobal.handleReject(teacherBundle, studentBundle, "Full room "); // ;)
+        data[index] = ["", "", "", "", false, false];
+      }
+    }
+  });
+
+  range.setValues(data);
+}
+
+function submitAbsences() {
+  let incSheet = SpreadsheetApp.getActive().getSheetByName("Incoming");
+  let setSheet = SpreadsheetApp.getActive().getSheetByName("Settings");
+  let setName = setSheet.getRange("C2").getValue();
+  let setRoom = setSheet.getRange("C3").getValue();
+
+  let range = incSheet.getRange("B3:G" + incSheet.getLastRow());
+  let data = range.getValues();
+
+  data.forEach((student) => {
+    if (student[0]) {
+      const studentBundle = {
+        email: student[1],
+        name: student[0],
+        homeroom: student[2],
+        destination: setName + " @ " + setRoom,
+        purpose: student[3],
+      };
+
+      if (student[5]) {
+        ESGlobal.handleAbsent(studentBundle);
       }
     }
   });
 }
 
-function submitAbscences() {}
+function dailyReset() {
+  let incSheet = SpreadsheetApp.getActive().getSheetByName("Incoming");
+  let range = incSheet.getRange("B3:G" + incSheet.getLastRow());
+  let data = range.getValues();
+  data.forEach((_, index) => {
+    data[index] = ["", "", "", "", false, false];
+  });
+  range.setValues(data);
+
+  let outSheet = SpreadsheetApp.getActive().getSheetByName("Outgoing");
+  range = outSheet.getRange("B3:E38");
+  range.clearContent();
+}
