@@ -2,9 +2,9 @@ This program built on Google Apps Script and HTML/JS has the inteneded purpose o
 
 ## Features<br/>
 
-- **Student Request Form** – allows students to submit requests (e.g. schedule changes, resource needs)  <br/>
+- **Student Request Form** – allows students to submit requests (e.g. transfer classrooms)  <br/>
 - **Teacher Approval Form** – lets teachers view and approve or reject incoming student requests  <br/>
-- **Automated Updater Scripts** – processes form submissions, updates the Google Sheet database, and notifies stakeholders  <br/>
+- **Automated Updater Scripts** – processes form submissions, updates the Google Sheet database, and notifies teachers/stakeholders   <br/>
 - **Initializer Script** – initializes Google Sheets with the necessary columns, sheets, and default data  <br/>
 - **Global Utilities** – shared constants & helper functions for easy maintenance<br/>
 
