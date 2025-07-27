@@ -39,3 +39,19 @@ esilverslip-main/<br/>
 │   └── Updater.js<br/>
 ├── RequestForm.js<br/>
 └── TeacherRequestForm.js<br/>
+
+
+© 2025 1ightstep. All rights reserved.<br/>
+
+This software is provided for **personal, non‑commercial use only**. You may:<br/>
+
+- View and run the source code on your own machine.<br/>
+- Study and learn from the implementation.<br/>
+
+You may **not**:<br/>
+
+- Distribute copies of this software to others.<br/>
+- Sell, sublicense, or otherwise use it for any commercial purpose.<br/>
+- Modify this software and distribute the modifications.<br/>
+
+For any other use—especially commercial use—please contact the copyright holder for a separate license.<br/>
