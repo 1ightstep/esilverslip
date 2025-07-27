@@ -1,4 +1,4 @@
-This program built on Google Apps Script and HTML/JS has the inteneded purpose of manging 1000 students at a school <br/>
+This program, built on Google Appscript/Javascript and HTML + CSS, has the intended purpose of managing 1300+ students and 72+ teachers at a school <br/>
 
 ## Features<br/>
 
