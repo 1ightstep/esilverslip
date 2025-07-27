@@ -1,4 +1,4 @@
-This program built on JavaScript/Google's appscript has the inteneded purpose of manging 1000 students at a school 
+This program built on Google Apps Script and HTML/JS has the inteneded purpose of manging 1000 students at a school 
 
 
 
