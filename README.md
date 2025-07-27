@@ -7,6 +7,11 @@ This program built on Google Apps Script and HTML/JS has the inteneded purpose o
 - **Automated Updater Scripts** – processes form submissions, updates the Google Sheet database, and notifies stakeholders  <br/>
 - **Initializer Script** – bootstraps your Google Sheet with the necessary columns, sheets, and default data  <br/>
 - **Global Utilities** – shared constants & helper functions for easy maintenance<br/>
+
+
+
+
+
 <br/>
 Structure:<br/>
 esilverslip-main/<br/>
