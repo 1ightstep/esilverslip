@@ -31,6 +31,11 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
   if (alreadySubmit) {
     //prevents spam
     if (alreadySubmit[2] == homeroom && alreadySubmit[3] == destination) {
+      ESGlobal.handleReject(
+        teacherBundle,
+        studentBundle,
+        "Your current request has been processed previously."
+      );
       return;
     }
     //teacher requested the student-> can't make another request
@@ -40,6 +45,7 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
         studentBundle,
         "You are requested by " + alreadySubmit[5]
       );
+      return;
     } else {
       ESGlobal.handleSubmitted(alreadySubmit);
     }
