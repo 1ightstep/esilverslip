@@ -17,8 +17,6 @@ function handleSubmitted(oldData) {
   accessTeacherDB().changeCurrentStudent(oldDestTeacher, -1);
 
   //clear homeroom only if prev accepted
-  GmailApp.sendEmail("15812@sgusd.net", "a", oldData);
-
   if (oldData[5] === "_ACCEPTED_") {
     const oldHomeTeacher = oldData[2].split(" @ ")[0];
     const oldHomeSheet = SpreadsheetApp.openById(
