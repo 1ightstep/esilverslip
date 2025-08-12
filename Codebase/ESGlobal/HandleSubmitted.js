@@ -1,20 +1,15 @@
 function handleSubmitted(oldData) {
-  const oldHomeTeacher = oldData[2].split(" @ ")[0];
   const oldDestTeacher = oldData[3].split(" @ ")[0];
-
-  const oldHomeSheet = SpreadsheetApp.openById(
-    accessTeacherDB().getData(oldHomeTeacher)[0]
-  ).getSheetByName("Outgoing");
   const oldDestSheet = SpreadsheetApp.openById(
     accessTeacherDB().getData(oldDestTeacher)[0]
   ).getSheetByName("Incoming");
 
   //remove student from destination teacher sheet
+  //if student does not exist, it will throw an error
   let range = oldDestSheet.getDataRange();
   let values = range.getValues();
   let rowSelect = 2;
-
-  while (values[rowSelect][2] != oldData[0]) {
+  while (rowSelect < values.length && values[rowSelect][2] != oldData[0]) {
     rowSelect++;
   }
   let rowRange = oldDestSheet.getRange(rowSelect + 1, 2, 1, 6);
@@ -22,11 +17,17 @@ function handleSubmitted(oldData) {
   accessTeacherDB().changeCurrentStudent(oldDestTeacher, -1);
 
   //clear homeroom only if prev accepted
-  if (oldData[5] == "_ACCEPTED_") {
+  GmailApp.sendEmail("15812@sgusd.net", "a", oldData);
+
+  if (oldData[5] === "_ACCEPTED_") {
+    const oldHomeTeacher = oldData[2].split(" @ ")[0];
+    const oldHomeSheet = SpreadsheetApp.openById(
+      accessTeacherDB().getData(oldHomeTeacher)[0]
+    ).getSheetByName("Outgoing");
     range = oldHomeSheet.getDataRange();
     values = range.getValues();
     rowSelect = 2;
-    while (rowSelect < values.length && values[rowSelect][2] != email) {
+    while (rowSelect < values.length && values[rowSelect][2] != oldData[0]) {
       rowSelect++;
     }
     rowRange = oldHomeSheet.getRange(rowSelect + 1, 2, 1, 4);
