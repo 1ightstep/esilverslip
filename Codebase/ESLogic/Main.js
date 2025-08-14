@@ -55,9 +55,11 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
     let isFull = ESGlobal.accessTeacherDB().isTeacherFull(destinationTeacher);
     if (isFull) {
       ESGlobal.handleReject(teacherBundle, studentBundle, "Full room");
+      return;
     }
   } else if (isSubstitute) {
     ESGlobal.handleReject(teacherBundle, studentBundle, "Teacher absent");
+    return;
   }
   ESGlobal.handlePending(teacherBundle, studentBundle);
 }
