@@ -17,6 +17,7 @@ function handleReject(teacherBundle, studentBundle, reason) {
   }
   rowRange = homeTeacherSheet.getRange(rowSelect + 1, 2, 1, 4);
   rowRange.setValues([["", "", "", ""]]);
+  rowRange.setBackground(null);
 
   //remove student from student db
   accessStudentDB().setData(studentBundle.email, {
