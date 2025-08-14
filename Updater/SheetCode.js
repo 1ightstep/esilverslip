@@ -142,4 +142,5 @@ function dailyReset() {
   let outSheet = SpreadsheetApp.getActive().getSheetByName("Outgoing");
   range = outSheet.getRange("B3:E38");
   range.clearContent();
+  range.setBackground(null);
 }
