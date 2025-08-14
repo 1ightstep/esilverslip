@@ -1,44 +1,35 @@
-function handleAccept(teacherBundle, studentBundle) {
+function handleAbsent(studentBundle) {
+  //get homeroom teacher sheet
+  const homeTeacher = studentBundle.homeroom.split(" @ ")[0];
   const homeTeacherSheet = SpreadsheetApp.openById(
-    teacherBundle.homeSheetId
+    accessTeacherDB().getData(homeTeacher)[0]
   ).getSheetByName("Outgoing");
 
-  //no need for currStudents ++ since pending already does it;
-
-  //update homeroom teacher by adding to outgoing
-  range = homeTeacherSheet.getDataRange();
-  values = range.getValues();
-  rowSelect = 2;
-  //do not use !values[rowSelect][1] even tho it works for normal js
-  while (values[rowSelect][1] != "") {
+  //find student in outgoing sheet and mark them grey
+  let range = homeTeacherSheet.getDataRange();
+  let values = range.getValues();
+  let rowSelect = 2;
+  while (
+    rowSelect < values.length &&
+    values[rowSelect][2] != studentBundle.email
+  ) {
     rowSelect++;
   }
+  let rowRange = homeTeacherSheet.getRange(
+    rowSelect + 1,
+    2,
+    1,
+    homeTeacherSheet.getLastColumn() - 1
+  );
+  rowRange.setBackground("grey");
 
-  rowRange = homeTeacherSheet.getRange(rowSelect + 1, 2, 1, 4);
-  rowRange.setValues([
-    [
-      studentBundle.name,
-      studentBundle.email,
-      studentBundle.destination,
-      studentBundle.purpose,
-    ],
-  ]);
-
-  //update student database
+  //update status
   accessStudentDB().updateData(
     studentBundle.email,
     studentBundle.name,
-    studentBundle.homeroom,
+    studentBundle.email,
     studentBundle.destination,
     studentBundle.purpose,
-    "_ACCEPTED_"
-  );
-
-  //send email to student
-  sendAcceptEmail(
-    studentBundle.email,
-    studentBundle.name,
-    studentBundle.destination,
-    studentBundle.homeroom
+    "_ABSENT_"
   );
 }
