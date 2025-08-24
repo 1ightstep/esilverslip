@@ -6,9 +6,9 @@ function handleReject(teacherBundle, studentBundle, reason) {
   const homeTeacherSheet = SpreadsheetApp.openById(
     teacherBundle.homeSheetId
   ).getSheetByName("Outgoing");
-  range = homeTeacherSheet.getDataRange();
-  values = range.getValues();
-  rowSelect = 2;
+  let range = homeTeacherSheet.getDataRange();
+  let values = range.getValues();
+  let rowSelect = 2;
   while (
     rowSelect < values.length &&
     values[rowSelect][2] != studentBundle.email
