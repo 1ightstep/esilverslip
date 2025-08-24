@@ -3,14 +3,15 @@ function handleAccept(teacherBundle, studentBundle) {
     teacherBundle.homeSheetId
   ).getSheetByName("Outgoing");
 
-  //currStudents ++;
-  accessTeacherDB().changeCurrentStudent(teacherBundle.destTeacher, 1);
+  //no need for currStudents ++ since pending already does it;
 
   //update homeroom teacher by adding to outgoing
-  range = homeTeacherSheet.getDataRange();
-  values = range.getValues();
-  rowSelect = 2;
-  while (!values[rowSelect][1]) {
+  let range = homeTeacherSheet.getDataRange();
+  let values = range.getValues();
+  let rowSelect = 2;
+  //do not use !values[rowSelect][1] even tho it works for normal js
+
+  while (values[rowSelect][2] && values[rowSelect][2] != studentBundle.email) {
     rowSelect++;
   }
   rowRange = homeTeacherSheet.getRange(rowSelect + 1, 2, 1, 4);
