@@ -1,7 +1,12 @@
 function handleAccept(teacherBundle, studentBundle) {
+  //student has to be alr be in db; overwriting students will overwrite student db so dw
+  const acceptedStudent = accessStudentDB().getData(studentBundle.email);
+  if (acceptedStudent[5] === "_ACCEPTED_") return;
+
   const homeTeacherSheet = SpreadsheetApp.openById(
     teacherBundle.homeSheetId
   ).getSheetByName("Outgoing");
+
 
   //no need for currStudents ++ since pending already does it;
 
@@ -34,7 +39,7 @@ function handleAccept(teacherBundle, studentBundle) {
     "_ACCEPTED_"
   );
 
-  //send email to student
+  
   sendAcceptEmail(
     studentBundle.email,
     studentBundle.name,
