@@ -144,3 +144,10 @@ function dailyReset() {
   range.clearContent();
   range.setBackground(null);
 }
+
+function autoRun() {
+  if (ESGlobal.isETTime()) {
+    submitAbsences();
+    submitAdmissions;
+  }
+}
