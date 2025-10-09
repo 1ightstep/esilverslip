@@ -33,7 +33,8 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
       ESGlobal.handleReject(
         teacherBundle,
         studentBundle,
-        "Your current request has been processed previously."
+        "Your current request has been processed previously.",
+        false,
       );
       return;
     }
@@ -42,7 +43,8 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
       ESGlobal.handleReject(
         teacherBundle,
         studentBundle,
-        "You are requested by " + alreadySubmit[5]
+        "You are requested by " + alreadySubmit[5],
+        false,
       );
       return;
     } else {
@@ -61,7 +63,7 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
       teacherBundle,
       studentBundle,
       "Teacher absent",
-      false
+      false,
     );
     return;
   }
