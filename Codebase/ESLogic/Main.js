@@ -1,7 +1,6 @@
 function onStudentSubmit(email, name, homeroom, destination, purpose) {
   const homeroomTeacher = homeroom.split(" @ ")[0];
   const destinationTeacher = destination.split(" @ ")[0];
-
   const homeTeacherData = ESGlobal.accessTeacherDB().getData(homeroomTeacher);
   const destTeacherData =
     ESGlobal.accessTeacherDB().getData(destinationTeacher);
@@ -10,7 +9,7 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
   const destinationSheetId = destTeacherData[0];
 
   let isAuto = destTeacherData[4];
-  let isSubstitute = destTeacherData[4];
+  let isSubstitute = destTeacherData[5];
 
   const studentBundle = {
     email: email,
@@ -54,11 +53,16 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
   if (isAuto) {
     let isFull = ESGlobal.accessTeacherDB().isTeacherFull(destinationTeacher);
     if (isFull) {
-      ESGlobal.handleReject(teacherBundle, studentBundle, "Full room");
+      ESGlobal.handleReject(teacherBundle, studentBundle, "Full room", false);
       return;
     }
   } else if (isSubstitute) {
-    ESGlobal.handleReject(teacherBundle, studentBundle, "Teacher absent");
+    ESGlobal.handleReject(
+      teacherBundle,
+      studentBundle,
+      "Teacher absent",
+      false
+    );
     return;
   }
   ESGlobal.handlePending(teacherBundle, studentBundle);

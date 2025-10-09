@@ -1,6 +1,13 @@
-function handleReject(teacherBundle, studentBundle, reason) {
+function handleReject(
+  teacherBundle,
+  studentBundle,
+  reason,
+  changeCurrStudent = true
+) {
   //destination teacher curr students --;
-  accessTeacherDB().changeCurrentStudent(teacherBundle.destTeacher, -1);
+  if (changeCurrStudent) {
+    accessTeacherDB().changeCurrentStudent(teacherBundle.destTeacher, -1);
+  }
 
   //remove student from home teacher sheet regardless
   const homeTeacherSheet = SpreadsheetApp.openById(

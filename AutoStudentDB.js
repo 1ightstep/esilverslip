@@ -7,8 +7,10 @@ function getDate() {
 function clearDB() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const ogSheet = ss.getSheetByName("db");
+  const lastRow = Math.max(ogSheet.getLastRow(), 2);
 
-  const range = ogSheet.getRange("A2:F" + ogSheet.getLastRow());
+  const range = ogSheet.getRange("A2:F" + lastRow);
+
   range.clearContent();
 }
 

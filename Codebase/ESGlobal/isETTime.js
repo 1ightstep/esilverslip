@@ -13,9 +13,9 @@ function getTimeFrame() {
 }
 
 function isETTime() {
-  const {hour, minute} = getTimeFrame();
-  if (hour === 12 && minute === 47) {
-    return true; 
+  const { hour, minute } = getTimeFrame();
+  if (hour === 13 && minute === 22) {
+    return true;
   }
   return false;
 }

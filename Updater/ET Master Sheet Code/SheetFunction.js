@@ -4,6 +4,7 @@ function getFormID() {
 }
 
 function saveSettings() {
+  createDailyTrigger();
   let setSheet = SpreadsheetApp.getActive().getSheetByName("Settings");
   let incSheet = SpreadsheetApp.getActive().getSheetByName("Incoming");
   let incMax = incSheet.getLastRow() - 2;
@@ -44,9 +45,15 @@ function saveSettings() {
       );
       updateSequence();
     }
+    //automatic mode auto runs based on et time:)
+    if (settings.automaticMode) {
+      createMinuteTrigger();
+    } else {
+      deleteMinuteTrigger();
+    }
 
     const formId = SpreadsheetApp.getActive().getId();
-    ESGlobal.accessTeacherDB().updateSettings(formId, settings);
+    updateTeacherSettings(formId, settings);
   }
 }
 
@@ -86,16 +93,14 @@ function submitAdmissions() {
       const teacherBundle = {
         destSheetId: getFormID(),
         destTeacher: setName,
-        homeSheetId: ESGlobal.accessTeacherDB().getData(
-          student[2].split(" @ ")[0]
-        )[0],
+        homeSheetId: getTeacherData(student[2].split(" @ ")[0])[0],
         homeTeacher: student[2].split(" @ ")[0],
       };
 
       if (student[4]) {
-        ESGlobal.handleAccept(teacherBundle, studentBundle);
+        handleAccept(teacherBundle, studentBundle);
       } else {
-        ESGlobal.handleReject(teacherBundle, studentBundle, "Full room "); // ;)
+        handleReject(teacherBundle, studentBundle, "Full room "); // ;)
         data[index] = ["", "", "", "", false, false];
       }
     }
@@ -124,30 +129,8 @@ function submitAbsences() {
       };
 
       if (student[5]) {
-        ESGlobal.handleAbsent(studentBundle);
+        handleAbsent(studentBundle);
       }
     }
   });
-}
-
-function dailyReset() {
-  let incSheet = SpreadsheetApp.getActive().getSheetByName("Incoming");
-  let range = incSheet.getRange("B3:G" + incSheet.getLastRow());
-  let data = range.getValues();
-  data.forEach((_, index) => {
-    data[index] = ["", "", "", "", false, false];
-  });
-  range.setValues(data);
-
-  let outSheet = SpreadsheetApp.getActive().getSheetByName("Outgoing");
-  range = outSheet.getRange("B3:E38");
-  range.clearContent();
-  range.setBackground(null);
-}
-
-function autoRun() {
-  if (ESGlobal.isETTime()) {
-    submitAbsences();
-    submitAdmissions;
-  }
 }

@@ -17,14 +17,12 @@ function initializer() {
   Logger.log("Deleted all spreadsheets in target folder.");
   Logger.log("Now cloning template/master spreadsheet.");
 
-  const rootDrive = DriveApp.getFolderById("0ABEG3VNxy80-Uk9PVA"); //ESGlobal not necessary since it's one time use
   teacherInfo.forEach((info) => {
     if (info[0] && info[1]) {
       const newName = `Teacher Sheet - ${info[0]}`;
       const newSS = template.makeCopy(newName, targetFolder);
 
       newSS.addEditor(info[1]);
-      rootDrive.addEditor(info[1]);
       ESGlobal.sendUpdateEmail(info[1], info[0], newSS.getUrl());
 
       Logger.log(`${newName} has been added.`);

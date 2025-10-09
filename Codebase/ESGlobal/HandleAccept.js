@@ -7,7 +7,6 @@ function handleAccept(teacherBundle, studentBundle) {
     teacherBundle.homeSheetId
   ).getSheetByName("Outgoing");
 
-
   //no need for currStudents ++ since pending already does it;
 
   //update homeroom teacher by adding to outgoing
@@ -39,7 +38,6 @@ function handleAccept(teacherBundle, studentBundle) {
     "_ACCEPTED_"
   );
 
-  
   sendAcceptEmail(
     studentBundle.email,
     studentBundle.name,
