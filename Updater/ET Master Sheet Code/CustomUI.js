@@ -4,7 +4,7 @@ function onOpen() {
 
 function createCustomUI() {
   SpreadsheetApp.getUi()
-    .createMenu("🛠️ ES Utilies 🛠️")
+    .createMenu("🛠️ ES Utilities 🛠️")
     .addItem("✅ Submit Admissions ✅", "submitAdmissions")
     .addItem("❌ Submit Absences ❌", "submitAbsences")
     .addItem("💾 Save Settings 💾", "saveSettings")
