@@ -19,61 +19,22 @@
         font-family: Helvetica, -apple-system;
         font-weight: 200;
       }
-      .info-container {
-        width: fit-content;
-        border: 1px solid rgb(0, 0, 0, 0.2);
-        padding: 2rem 5rem 2rem 5rem;
-        border-radius: 1rem;
-      }
-      .info {
-        height: 100%;
-        display: flex;
-      }
-      .info h1 {
-        font-size: 2rem;
-        font-family: Helvetica, -apple-system;
-        font-weight: 200;
-      }
     </style>
   </head>
   <body>
     <div class="intro">
       <h1>
         Hello
-        <?= name ?>,<br />here is your update.
+        <?= studentGmail ?>,<br />
+        <?= teacherGmail ?>
+        has requested for you.
+        <br />
+        <br />
+        Please fill out the ESilverSlip Form.
+        <br />
+        <br />
+        https://tinyurl.com/esilverslip-form
       </h1>
-    </div>
-    <div class="info-container">
-      <div class="info">
-        <h1>
-          Status:
-          <span style="color: red; font-weight: 500"> Rejected </span>
-        </h1>
-      </div>
-      <div class="info">
-        <h1>
-          Date & time:
-          <span style="font-weight: 500">
-            <?= datetime ?>
-          </span>
-        </h1>
-      </div>
-      <div class="info">
-        <h1>
-          Destination:
-          <span style="font-weight: 500">
-            <?= destination ?>
-          </span>
-        </h1>
-      </div>
-      <div class="info">
-        <h1>
-          Reason:
-          <span style="font-weight: 500">
-            <?= reason ?>
-          </span>
-        </h1>
-      </div>
     </div>
   </body>
   <html />
