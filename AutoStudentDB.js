@@ -10,7 +10,7 @@ function clearDB() {
   const lastRow = Math.max(ogSheet.getLastRow(), 2);
 
   const range = ogSheet.getRange("A2:F" + lastRow);
-
+  
   range.clearContent();
 }
 
@@ -21,7 +21,7 @@ function getDay() {
 }
 
 function makeHistory() {
-  if (getDay() == 2 || getDay == 4) {
+  if (getDay() === 2 || getDay() === 4) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const ogSheet = ss.getSheetByName("db");
     const sheetName = getDate();
