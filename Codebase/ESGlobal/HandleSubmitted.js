@@ -1,7 +1,7 @@
 function handleSubmitted(oldData) {
   const oldDestTeacher = oldData[3].split(" @ ")[0];
   const oldDestSheet = SpreadsheetApp.openById(
-    accessTeacherDB().getData(oldDestTeacher)[0]
+    accessTeacherDB().getData(oldDestTeacher)[0],
   ).getSheetByName("Incoming");
 
   //remove student from destination teacher sheet
@@ -20,7 +20,7 @@ function handleSubmitted(oldData) {
   if (oldData[5] === "_ACCEPTED_") {
     const oldHomeTeacher = oldData[2].split(" @ ")[0];
     const oldHomeSheet = SpreadsheetApp.openById(
-      accessTeacherDB().getData(oldHomeTeacher)[0]
+      accessTeacherDB().getData(oldHomeTeacher)[0],
     ).getSheetByName("Outgoing");
     range = oldHomeSheet.getDataRange();
     values = range.getValues();
@@ -32,5 +32,13 @@ function handleSubmitted(oldData) {
     rowRange.setValues([["", "", "", ""]]);
   }
 
-  //no need to update student database since pending does it and reject clears it
+  //remove from studentDB regardless since next reject could be non-inRoom
+  accessStudentDB().setData(oldData[0], {
+    email: "",
+    name: "",
+    homeroom: "",
+    destination: "",
+    purpose: "",
+    status: "",
+  });
 }
