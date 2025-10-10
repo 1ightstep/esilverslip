@@ -101,6 +101,7 @@ function submitAdmissions() {
       };
       
       if (student[4] || automaticMode) {
+        data[index][4] = true;
         handleAccept(teacherBundle, studentBundle);
       } else {
         handleReject(teacherBundle, studentBundle, "Full room "); // ;)
