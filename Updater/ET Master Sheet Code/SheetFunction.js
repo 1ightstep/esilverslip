@@ -77,6 +77,7 @@ function submitAdmissions() {
   let setSheet = SpreadsheetApp.getActive().getSheetByName("Settings");
   let setName = setSheet.getRange("C2").getValue();
   let setRoom = setSheet.getRange("C3").getValue();
+  let automaticMode = setSheet.getRange("C6").getValue();
 
   let range = incSheet.getRange("B3:G" + incSheet.getLastRow());
   let data = range.getValues();
@@ -93,11 +94,13 @@ function submitAdmissions() {
       const teacherBundle = {
         destSheetId: getFormID(),
         destTeacher: setName,
-        homeSheetId: getTeacherData(student[2].split(" @ ")[0])[0],
+        homeSheetId: getTeacherData(
+          student[2].split(" @ ")[0]
+        )[0],
         homeTeacher: student[2].split(" @ ")[0],
       };
-
-      if (student[4]) {
+      
+      if (student[4] || automaticMode) {
         handleAccept(teacherBundle, studentBundle);
       } else {
         handleReject(teacherBundle, studentBundle, "Full room "); // ;)
