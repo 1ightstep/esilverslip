@@ -9,23 +9,21 @@ function initializer() {
   const targetFolder = DriveApp.getFolderById(ESGlobal.getSheetsFolderId());
   const template = DriveApp.getFileById(ESGlobal.getUpdaterTemplateId());
 
-  const folderFiles = targetFolder.getFilesByType(MimeType.GOOGLE_SHEETS);
-  while (folderFiles.hasNext()) {
-    const file = folderFiles.next();
-    file.setTrashed(true);
-  }
-  Logger.log("Deleted all spreadsheets in target folder.");
   Logger.log("Now cloning template/master spreadsheet.");
 
   teacherInfo.forEach((info) => {
     if (info[0] && info[1]) {
-      const newName = `Teacher Sheet - ${info[0]}`;
-      const newSS = template.makeCopy(newName, targetFolder);
+      try {
+        const newName = `Teacher Sheet - ${info[0].trim()}`;
+        const newSS = template.makeCopy(newName, targetFolder);
 
-      newSS.addEditor(info[1]);
-      ESGlobal.sendUpdateEmail(info[1], info[0], newSS.getUrl());
+        newSS.addEditor(info[1].trim());
+        ESGlobal.sendUpdateEmail(info[1].trim(), info[0].trim(), newSS.getUrl());
 
-      Logger.log(`${newName} has been added.`);
+        Logger.log(`Added ${newName}.`);
+      } catch (err) {
+        Logger.log(`Failed to create ${newName} | err: ${err}`);
+      }
     }
   });
 }
