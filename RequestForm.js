@@ -42,23 +42,21 @@ function getTimeFrame() {
   const date = new Date();
   const day = date.getDay();
 
-  const hour = date.getHours();
+  const hour = date.getHours(); 
   const minute = date.getMinutes();
 
   return {
-    day: day,
-    hour: hour,
-    minute: minute,
+    day: day, 
+    hour: hour, 
+    minute: minute
   };
 }
+
 function autoOpen() {
   var mainForm = ESGlobal.getRequestForm();
-  if (
-    (getTimeFrame.day == 2 || getTimeFrame.day == 4) &&
-    getTimeFrame.hour >= 8 &&
-    getTimeFrame.hour <= 12
-  ) {
-    if (getTimeFrame.getHour == 12 && getTimeFrame.minute > 0) return;
+  if ((getTimeFrame().day == 2 || getTimeFrame().day == 4) && (getTimeFrame().hour >= 8 && getTimeFrame().hour <= 12)) {
+    if (getTimeFrame().getHour == 12 && getTimeFrame().minute > 0) 
+      return;
     mainForm.setAcceptingResponses(true);
   } else {
     mainForm.setAcceptingResponses(false);
