@@ -20,6 +20,13 @@ function saveSettings() {
     substituteMode: data[5][0],
     maxAdditions: data[3][0],
   };
+
+  for (const key in settings) {
+    if (settings[key] == "TYPE HERE") {
+      throw(`Please configure your ${key}.`);
+    }
+  }
+
   if (settings.maxAdditions >= 1 && settings.maxAdditions <= 100) {
     if (settings.maxAdditions > incMax) {
       let example = incSheet.getRange(
@@ -132,8 +139,12 @@ function submitAbsences() {
         purpose: student[3],
       };
 
-      if (student[5]) {
+      //if alr accepted then can mark absent
+      if (student[5] && student[4]) {
         handleAbsent(studentBundle);
+      } 
+      else if (!student[5] && student[4]) {
+        removeAbsent(studentBundle);
       }
     }
   });
