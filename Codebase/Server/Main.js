@@ -19,6 +19,7 @@ function doPost(e) {
       ESGlobal.accessTeacherDB().updateSettings(data.formId, data.settings);
       result = { status: "ok", message: "Updated teacher settings." };
       break;
+      
     case "accept":
       ESGlobal.handleAccept(data.studentBundle, data.teacherBundle);
       result = { status: "ok", message: "Handled accept." };
@@ -36,6 +37,11 @@ function doPost(e) {
     case "absent":
       ESGlobal.handleAbsent(data.studentBundle);
       result = { status: "ok", message: "Handled absent." };
+      break;
+
+    case "removeAbsent":
+      ESGlobal.removeAbsent(data.studentBundle);
+      result = { status: "ok", message: "Handled removeAbsent." };
       break;
 
     case "isETTime":
