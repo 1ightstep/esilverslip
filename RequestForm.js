@@ -55,8 +55,11 @@ function getTimeFrame() {
 function autoOpen() {
   var mainForm = ESGlobal.getRequestForm();
   if ((getTimeFrame().day == 2 || getTimeFrame().day == 4) && (getTimeFrame().hour >= 8 && getTimeFrame().hour <= 12)) {
-    if (getTimeFrame().getHour == 12 && getTimeFrame().minute > 0) 
+    if (getTimeFrame().hour == 12 && getTimeFrame().minute > 0) {
+      mainForm.setAcceptingResponses(false);
       return;
+    }
+
     mainForm.setAcceptingResponses(true);
   } else {
     mainForm.setAcceptingResponses(false);
