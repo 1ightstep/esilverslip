@@ -32,7 +32,7 @@ function createDailyTrigger() {
   ScriptApp.newTrigger("dailyReset")
     .timeBased()
     .everyDays(1)
-    .atHour(12)
+    .atHour(0)
     .create();
 }
 
