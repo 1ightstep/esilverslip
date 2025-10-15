@@ -13,8 +13,8 @@ function updater() {
 
   teacherInfo.forEach((info) => {
     if (info[0]) {
+      const newName = `Teacher Sheet - ${info[1].trim()}`;
       try {
-        const newName = `Teacher Sheet - ${info[1].trim()}`;
         const newSS = template.makeCopy(newName, targetFolder);
         const newSSId = newSS.getId(); 
 
@@ -23,8 +23,8 @@ function updater() {
           formName: info[1].trim(), 
           room: info[2].trim(), 
           email: info[3].trim(), 
-          automaticMode: info[4].trim(), 
-          substituteMode: info[5].trim(), 
+          automaticMode: info[4], 
+          substituteMode: info[5], 
           maxAdditions: info[6]
         });
         newSS.addEditor(info[3].trim());
