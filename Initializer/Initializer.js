@@ -13,8 +13,8 @@ function initializer() {
 
   teacherInfo.forEach((info) => {
     if (info[0] && info[1]) {
+      const newName = `Teacher Sheet - ${info[0].trim()}`;
       try {
-        const newName = `Teacher Sheet - ${info[0].trim()}`;
         const newSS = template.makeCopy(newName, targetFolder);
 
         newSS.addEditor(info[1].trim());
