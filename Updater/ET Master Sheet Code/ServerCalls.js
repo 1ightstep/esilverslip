@@ -1,4 +1,4 @@
-const API_WEBAPP_URL = "API_WEB_APP_URL";
+const API_WEBAPP_URL = "API_WEBAPP_URL_PLACEHOLDER";
 
 function updateTeacherSettings(formId, settings) {
   const response = UrlFetchApp.fetch(API_WEBAPP_URL, {
@@ -7,14 +7,16 @@ function updateTeacherSettings(formId, settings) {
     payload: JSON.stringify({
       action: "updateSettings",
       formId: formId,
-      settings: settings
+      settings: settings,
     }),
-    muteHttpExceptions: true
+    muteHttpExceptions: true,
   });
 
   const code = response.getResponseCode();
   if (code !== 200) {
-    throw new Error("Error when updating teacher settings. " + response.getContentText());
+    throw new Error(
+      "Error when updating teacher settings. " + response.getContentText()
+    );
   }
 
   return JSON.parse(response.getContentText());
@@ -25,7 +27,7 @@ function getTeacherData(formName) {
     API_WEBAPP_URL + "?formName=" + encodeURIComponent(formName),
     {
       method: "get",
-      muteHttpExceptions: true
+      muteHttpExceptions: true,
     }
   );
 
@@ -44,9 +46,9 @@ function handleAccept(studentBundle, teacherBundle) {
     payload: JSON.stringify({
       action: "accept",
       studentBundle: studentBundle,
-      teacherBundle: teacherBundle
+      teacherBundle: teacherBundle,
     }),
-    muteHttpExceptions: true
+    muteHttpExceptions: true,
   });
 
   const code = response.getResponseCode();
@@ -65,9 +67,9 @@ function handleReject(studentBundle, teacherBundle, reason) {
       action: "reject",
       studentBundle: studentBundle,
       teacherBundle: teacherBundle,
-      reason: reason
+      reason: reason,
     }),
-    muteHttpExceptions: true
+    muteHttpExceptions: true,
   });
 
   const code = response.getResponseCode();
@@ -84,9 +86,9 @@ function handleAbsent(studentBundle) {
     contentType: "application/json",
     payload: JSON.stringify({
       action: "absent",
-      studentBundle: studentBundle
+      studentBundle: studentBundle,
     }),
-    muteHttpExceptions: true
+    muteHttpExceptions: true,
   });
 
   const code = response.getResponseCode();
@@ -103,9 +105,9 @@ function removeAbsent(studentBundle) {
     contentType: "application/json",
     payload: JSON.stringify({
       action: "removeAbsent",
-      studentBundle: studentBundle
+      studentBundle: studentBundle,
     }),
-    muteHttpExceptions: true
+    muteHttpExceptions: true,
   });
 
   const code = response.getResponseCode();
@@ -114,23 +116,4 @@ function removeAbsent(studentBundle) {
   }
 
   return JSON.parse(response.getContentText());
-}
-
-function isETTime() {
-    const response = UrlFetchApp.fetch(API_WEBAPP_URL, {
-    method: "post",
-    contentType: "application/json",
-    payload: JSON.stringify({
-      action: "isETTime",
-    }),
-    muteHttpExceptions: true
-  });
-
-  const code = response.getResponseCode();
-  if (code !== 200) {
-    throw new Error("Error when getting ET time.");
-  }
-
-  Logger.log(response.getContentText());
-  return JSON.parse(response.getContentText()).message;
 }

@@ -14,12 +14,6 @@ function dailyReset() {
   range.setBackground(null);
 }
 
-function autoRun() {
-  if (isETTime()) {
-    submitAdmissions();
-  }
-}
-
 //triggers
 function createDailyTrigger() {
   const triggers = ScriptApp.getProjectTriggers();
@@ -34,24 +28,4 @@ function createDailyTrigger() {
     .everyDays(1)
     .atHour(0)
     .create();
-}
-
-function createMinuteTrigger() {
-  const triggers = ScriptApp.getProjectTriggers();
-  for (let i = 0; i < triggers.length; i++) {
-    if (triggers[i].getHandlerFunction() === "autoRun") {
-      ScriptApp.deleteTrigger(triggers[i]);
-    }
-  }
-
-  ScriptApp.newTrigger("autoRun").timeBased().everyMinutes(1).create();
-}
-
-function deleteMinuteTrigger() {
-  const triggers = ScriptApp.getProjectTriggers();
-  for (let i = 0; i < triggers.length; i++) {
-    if (triggers[i].getHandlerFunction() === "autoRun") {
-      ScriptApp.deleteTrigger(triggers[i]);
-    }
-  }
 }
