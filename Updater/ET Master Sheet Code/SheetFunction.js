@@ -4,6 +4,10 @@ function getFormID() {
 }
 
 function saveSettings() {
+  if (hasStudent()) {
+    alert("You cannot save your settings at this time.");
+  }
+
   createDailyTrigger();
   let setSheet = SpreadsheetApp.getActive().getSheetByName("Settings");
   let incSheet = SpreadsheetApp.getActive().getSheetByName("Incoming");
@@ -64,6 +68,10 @@ function submitAdmissions() {
   let setName = setSheet.getRange("C2").getValue();
   let setRoom = setSheet.getRange("C3").getValue();
   let automaticMode = setSheet.getRange("C6").getValue();
+  if (automaticMode) {
+    alert("You cannot control student admissions with automatic mode.");
+    return;
+  }
 
   let range = incSheet.getRange("B3:G" + incSheet.getLastRow());
   let data = range.getValues();
@@ -84,11 +92,11 @@ function submitAdmissions() {
         homeTeacher: student[2].split(" @ ")[0],
       };
 
-      if (student[4] || automaticMode) {
+      if (student[4]) {
         data[index][4] = true;
         handleAccept(teacherBundle, studentBundle);
       } else {
-        handleReject(teacherBundle, studentBundle, "Full room "); // ;)
+        handleReject(teacherBundle, studentBundle, "Full room");
         data[index] = ["", "", "", "", false, false];
       }
     }
