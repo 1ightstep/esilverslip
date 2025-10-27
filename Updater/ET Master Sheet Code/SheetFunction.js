@@ -58,21 +58,6 @@ function saveSettings() {
   }
 }
 
-function updateSequence() {
-  let incSheet = SpreadsheetApp.getActive().getSheetByName("Incoming");
-  incSheet.getRange("A3:A" + incSheet.getLastRow()).clearContent();
-  let sequence = generateSequence(incSheet.getLastRow() - 2);
-  incSheet.getRange("A3:A" + incSheet.getLastRow()).setValues(sequence);
-}
-
-function generateSequence(length) {
-  let sequence = [];
-  for (let i = 1; i <= length; i++) {
-    sequence.push([i]);
-  }
-  return sequence;
-}
-
 function submitAdmissions() {
   let incSheet = SpreadsheetApp.getActive().getSheetByName("Incoming");
   let setSheet = SpreadsheetApp.getActive().getSheetByName("Settings");
