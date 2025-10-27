@@ -1,5 +1,13 @@
 const API_WEBAPP_URL = "API_WEBAPP_URL_PLACEHOLDER";
 
+function parseApiResponse(response, errorMessage) {
+  const result = JSON.parse(response.getContentText());
+  if (result.status && result.status !== "ok") {
+    alert(errorMessage);
+  }
+  return result;
+}
+
 function updateTeacherSettings(formId, settings) {
   const response = UrlFetchApp.fetch(API_WEBAPP_URL, {
     method: "post",
@@ -14,12 +22,10 @@ function updateTeacherSettings(formId, settings) {
 
   const code = response.getResponseCode();
   if (code !== 200) {
-    throw new Error(
-      "Error when updating teacher settings. " + response.getContentText()
-    );
+    alert("HTTP error: Failed to update teacher settings.");
+    return null;
   }
-
-  return JSON.parse(response.getContentText());
+  return parseApiResponse(response, "Failed to update teacher settings");
 }
 
 function getTeacherData(formName) {
@@ -33,10 +39,10 @@ function getTeacherData(formName) {
 
   const code = response.getResponseCode();
   if (code !== 200) {
-    throw new Error("Error when fetching teacher data.");
+    alert("HTTP error: Failed to fetch teacher data.");
+    return null;
   }
-
-  return JSON.parse(response.getContentText());
+  return parseApiResponse(response, `Failed to fetch teacher data."`);
 }
 
 function handleAccept(studentBundle, teacherBundle) {
@@ -53,10 +59,10 @@ function handleAccept(studentBundle, teacherBundle) {
 
   const code = response.getResponseCode();
   if (code !== 200) {
-    throw new Error("Error when handling accept.");
+    alert("HTTP error: Failed to accept student bundle.");
+    return null;
   }
-
-  return JSON.parse(response.getContentText());
+  return parseApiResponse(response, `Failed to accept ${studentBundle.name}`);
 }
 
 function handleReject(studentBundle, teacherBundle, reason) {
@@ -74,10 +80,10 @@ function handleReject(studentBundle, teacherBundle, reason) {
 
   const code = response.getResponseCode();
   if (code !== 200) {
-    throw new Error("Error when handling reject.");
+    alert("HTTP error: Failed to reject student bundle.");
+    return null;
   }
-
-  return JSON.parse(response.getContentText());
+  return parseApiResponse(response, `Failed to reject ${studentBundle.name}`);
 }
 
 function handleAbsent(studentBundle) {
@@ -93,10 +99,13 @@ function handleAbsent(studentBundle) {
 
   const code = response.getResponseCode();
   if (code !== 200) {
-    throw new Error("Error when submitting absences.");
+    alert("HTTP error: Failed to mark student absent.");
+    return null;
   }
-
-  return JSON.parse(response.getContentText());
+  return parseApiResponse(
+    response,
+    `Failed to mark ${studentBundle.name} absent`
+  );
 }
 
 function removeAbsent(studentBundle) {
@@ -112,8 +121,11 @@ function removeAbsent(studentBundle) {
 
   const code = response.getResponseCode();
   if (code !== 200) {
-    throw new Error("Error when submitting absences.");
+    alert("HTTP error: Failed to remove student absence.");
+    return null;
   }
-
-  return JSON.parse(response.getContentText());
+  return parseApiResponse(
+    response,
+    `Failed to remove ${studentBundle.name}'s absence`
+  );
 }
