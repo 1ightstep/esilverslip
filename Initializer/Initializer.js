@@ -11,16 +11,21 @@ function initializer() {
 
   Logger.log("Now cloning template/master spreadsheet.");
 
-  teacherInfo.forEach((info) => {
+  teacherInfo.forEach((info, _index) => {
     if (info[0] && info[1]) {
-      const newName = `Teacher Sheet - ${info[0].trim()}`;
       try {
+        const newName = `Teacher Sheet - ${info[0].trim()}`;
         const newSS = template.makeCopy(newName, targetFolder);
 
         newSS.addEditor(info[1].trim());
-        ESGlobal.sendUpdateEmail(info[1].trim(), info[0].trim(), newSS.getUrl());
+        ESGlobal.sendUpdateEmail(
+          info[1].trim(),
+          info[0].trim(),
+          newSS.getUrl()
+        );
 
         Logger.log(`Added ${newName}.`);
+        initializerSS.getSheetByName("initializer").deleteRow(_index + 2);
       } catch (err) {
         Logger.log(`Failed to create ${newName} | err: ${err}`);
       }
