@@ -23,11 +23,11 @@ function saveSettings() {
 
   for (const key in settings) {
     if (settings[key] == "TYPE HERE") {
-      throw(`Please configure your ${key}.`);
+      throw `Please configure your ${key}.`;
     }
   }
 
-  if (settings.maxAdditions >= 1 && settings.maxAdditions <= 100) {
+  if (settings.maxAdditions >= 1 && settings.maxAdditions <= 300) {
     if (settings.maxAdditions > incMax) {
       let example = incSheet.getRange(
         incSheet.getLastRow(),
@@ -51,12 +51,6 @@ function saveSettings() {
         incMax - settings.maxAdditions
       );
       updateSequence();
-    }
-    //automatic mode auto runs based on et time:)
-    if (settings.automaticMode) {
-      createMinuteTrigger();
-    } else {
-      deleteMinuteTrigger();
     }
 
     const formId = SpreadsheetApp.getActive().getId();
@@ -101,12 +95,10 @@ function submitAdmissions() {
       const teacherBundle = {
         destSheetId: getFormID(),
         destTeacher: setName,
-        homeSheetId: getTeacherData(
-          student[2].split(" @ ")[0]
-        )[0],
+        homeSheetId: getTeacherData(student[2].split(" @ ")[0])[0],
         homeTeacher: student[2].split(" @ ")[0],
       };
-      
+
       if (student[4] || automaticMode) {
         data[index][4] = true;
         handleAccept(teacherBundle, studentBundle);
@@ -142,8 +134,7 @@ function submitAbsences() {
       //if alr accepted then can mark absent
       if (student[5] && student[4]) {
         handleAbsent(studentBundle);
-      } 
-      else if (!student[5] && student[4]) {
+      } else if (!student[5] && student[4]) {
         removeAbsent(studentBundle);
       }
     }
