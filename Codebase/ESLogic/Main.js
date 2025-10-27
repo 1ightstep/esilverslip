@@ -34,7 +34,7 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
         teacherBundle,
         studentBundle,
         "Your current request has been processed previously.",
-        false,
+        false
       );
       return;
     }
@@ -44,7 +44,7 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
         teacherBundle,
         studentBundle,
         "You are requested by " + alreadySubmit[5],
-        false,
+        false
       );
       return;
     } else {
@@ -58,12 +58,14 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
       ESGlobal.handleReject(teacherBundle, studentBundle, "Full room", false);
       return;
     }
+    ESGlobal.handleAccept(teacherBundle, studentBundle, false);
+    return;
   } else if (isSubstitute) {
     ESGlobal.handleReject(
       teacherBundle,
       studentBundle,
       "Teacher absent",
-      false,
+      false
     );
     return;
   }

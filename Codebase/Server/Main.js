@@ -15,11 +15,11 @@ function doGet(e) {
 }
 
 function doPost(e) {
+  let result;
+
   try {
     const data = JSON.parse(e.postData.contents);
     const action = data.action;
-
-    let result;
 
     switch (action) {
       case "updateSettings":

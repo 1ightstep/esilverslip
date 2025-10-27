@@ -27,7 +27,7 @@ function handleAbsent(studentBundle) {
   accessStudentDB().updateData(
     studentBundle.email,
     studentBundle.name,
-    studentBundle.email,
+    studentBundle.homeroom,
     studentBundle.destination,
     studentBundle.purpose,
     "_ABSENT_"
