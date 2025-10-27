@@ -46,7 +46,7 @@ function handleAccept(teacherBundle, studentBundle, inRoomAccept = true) {
         studentBundle.email,
         studentBundle.homeroom,
         studentBundle.purpose,
-        false,
+        true,
         false,
       ],
     ]);
