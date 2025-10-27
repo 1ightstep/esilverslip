@@ -38,18 +38,8 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
       );
       return;
     }
-    //teacher requested the student-> can't make another request
-    if (alreadySubmit[5] != "_PENDING_" && alreadySubmit[5] != "_ACCEPTED_") {
-      ESGlobal.handleReject(
-        teacherBundle,
-        studentBundle,
-        "You are requested by " + alreadySubmit[5],
-        false
-      );
-      return;
-    } else {
-      ESGlobal.handleSubmitted(alreadySubmit);
-    }
+
+    ESGlobal.handleSubmitted(alreadySubmit);
   }
 
   if (isAuto) {
