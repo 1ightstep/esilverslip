@@ -16,16 +16,15 @@ function updater() {
       const newName = `Teacher Sheet - ${info[1].trim()}`;
       try {
         const newSS = template.makeCopy(newName, targetFolder);
-        const newSSId = newSS.getId();
 
         ESGlobal.accessTeacherDB().setData(info[0], {
-          newSheetId: newSSId,
-          formName: info[1].trim(),
-          room: info[2].trim(),
-          email: info[3].trim(),
-          automaticMode: info[4],
-          substituteMode: info[5],
-          maxAdditions: info[6],
+          newSheetId: null,
+          formName: null,
+          room: null,
+          email: null,
+          automaticMode: null,
+          substituteMode: null,
+          maxAdditions: null,
         });
         newSS.addEditor(info[3].trim());
         ESGlobal.sendUpdateEmail(
