@@ -16,9 +16,9 @@ class TeacherDatabase {
         .getValue();
       const newData = [
         sheetId,
-        formName,
-        room,
-        email,
+        formName.trim(),
+        room.trim(),
+        email.trim(),
         automaticMode,
         substituteMode,
         maxAdditions,
@@ -29,9 +29,9 @@ class TeacherDatabase {
         .setValues([newData]);
     } else {
       this.addData(sheetId, {
-        formName,
-        room,
-        email,
+        formName: formName.trim(),
+        room: room.trim(),
+        email: email.trim(),
         automaticMode,
         substituteMode,
         maxAdditions,
@@ -51,9 +51,9 @@ class TeacherDatabase {
     if (!duplicate) {
       this.db.appendRow([
         sheetId,
-        formName,
-        room,
-        email,
+        formName.trim(),
+        room.trim(),
+        email.trim(),
         automaticMode,
         substituteMode,
         maxAdditions,
@@ -84,9 +84,9 @@ class TeacherDatabase {
         .getValue();
       const newData = [
         newSheetId,
-        formName,
-        room,
-        email,
+        formName.trim(),
+        room.trim(),
+        email.trim(),
         automaticMode,
         substituteMode,
         maxAdditions,
@@ -106,20 +106,20 @@ class TeacherDatabase {
 
   dataExists(formName) {
     const data = this.getAllValues();
-    const row = data.find((row) => row[1] === formName);
+    const row = data.find((row) => row[1].trim() === formName.trim());
     return row || false;
   }
 
   isTeacherFull(formName) {
-    const data = this.getData(formName);
+    const data = this.getData(formName.trim());
     if (data.length < 8) return false;
     return data[7] >= data[6];
   }
 
   changeCurrentStudent(formName, changeByVal) {
     const data = this.getAllValues();
-    const rowData = this.getData(formName);
-    const targetRow = data.findIndex((row) => row[1] === formName) + 2; //+2 since getAllValues() starts grabbing @ row 2
+    const rowData = this.getData(formName.trim());
+    const targetRow = data.findIndex((row) => row[1].trim() === formName.trim()) + 2; //+2 since getAllValues() starts grabbing @ row 2
 
     if (targetRow >= 2 && rowData.length >= 8) {
       rowData[7] = rowData[7] + changeByVal;
