@@ -5,18 +5,17 @@ function doGet(e) {
     const teacherData = ESGlobal.accessTeacherDB().getData(formName);
 
     return ContentService.createTextOutput(
-      JSON.stringify(teacherData)
+      JSON.stringify(teacherData),
     ).setMimeType(ContentService.MimeType.JSON);
   } catch (error) {
     return ContentService.createTextOutput(
-      JSON.stringify({ status: "error", message: error.message })
+      JSON.stringify({ status: "error", message: error.message }),
     ).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
 function doPost(e) {
   let result;
-
   try {
     const data = JSON.parse(e.postData.contents);
     const action = data.action;
@@ -28,15 +27,15 @@ function doPost(e) {
         break;
 
       case "accept":
-        ESGlobal.handleAccept(data.studentBundle, data.teacherBundle);
+        ESGlobal.handleAccept(data.teacherBundle, data.studentBundle);
         result = { status: "ok", message: "Handled accept." };
         break;
 
       case "reject":
         ESGlobal.handleReject(
-          data.studentBundle,
           data.teacherBundle,
-          data.reason
+          data.studentBundle,
+          data.reason,
         );
         result = { status: "ok", message: "Handled reject." };
         break;
@@ -56,10 +55,10 @@ function doPost(e) {
         break;
     }
   } catch (error) {
-    result = { status: "error", message: error.message };
+    result = { status: "error", message: error };
   }
 
   return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(
-    ContentService.MimeType.JSON
+    ContentService.MimeType.JSON,
   );
 }
