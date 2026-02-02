@@ -4,7 +4,7 @@ function hasStudent() {
   const outSheet = ss.getSheetByName("Outgoing");
 
   const incomingRange = incSheet.getRange(
-    "B3:G" + Math.max(incSheet.getLastRow(), 3)
+    "B3:G" + Math.max(incSheet.getLastRow(), 3),
   );
   const outgoingRange = outSheet.getRange("B3:E38");
 
