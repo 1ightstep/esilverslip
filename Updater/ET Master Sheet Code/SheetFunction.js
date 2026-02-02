@@ -37,7 +37,7 @@ function saveSettings() {
         incSheet.getLastRow(),
         1,
         1,
-        incSheet.getLastColumn()
+        incSheet.getLastColumn(),
       );
       for (let i = 0; i < settings.maxAdditions - incMax; i++) {
         incSheet.appendRow([incMax + i + 1]);
@@ -45,14 +45,14 @@ function saveSettings() {
           incSheet.getLastRow(),
           1,
           1,
-          incSheet.getLastColumn()
+          incSheet.getLastColumn(),
         );
         example.copyTo(newRow, { formatOnly: true });
       }
     } else if (settings.maxAdditions < incMax) {
       incSheet.deleteRows(
         settings.maxAdditions + 3,
-        incMax - settings.maxAdditions
+        incMax - settings.maxAdditions,
       );
       updateSequence();
     }
@@ -91,7 +91,6 @@ function submitAdmissions() {
         homeSheetId: getTeacherData(student[2].split(" @ ")[0])[0],
         homeTeacher: student[2].split(" @ ")[0],
       };
-
       if (student[4]) {
         data[index][4] = true;
         handleAccept(teacherBundle, studentBundle);

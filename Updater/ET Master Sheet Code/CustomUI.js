@@ -10,3 +10,7 @@ function createCustomUI() {
     .addItem("💾 Save Settings 💾", "saveSettings")
     .addToUi();
 }
+
+function alert(message) {
+  SpreadsheetApp.getUi().alert(message);
+}
