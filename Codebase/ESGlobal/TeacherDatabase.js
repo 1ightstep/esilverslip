@@ -5,7 +5,7 @@ class TeacherDatabase {
 
   updateSettings(
     sheetId,
-    { formName, room, email, automaticMode, substituteMode, maxAdditions }
+    { formName, room, email, automaticMode, substituteMode, maxAdditions },
   ) {
     const data = this.getAllValues();
     const targetRow = data.findIndex((row) => row[0] === sheetId) + 2; //+2 since getAllValues() starts grabbing @ row 2
@@ -43,7 +43,7 @@ class TeacherDatabase {
 
   addData(
     sheetId,
-    { formName, room, email, automaticMode, substituteMode, maxAdditions }
+    { formName, room, email, automaticMode, substituteMode, maxAdditions },
   ) {
     const data = this.getAllValues();
     const duplicate = data.find((row) => row[1] === formName);
@@ -74,7 +74,7 @@ class TeacherDatabase {
       automaticMode,
       substituteMode,
       maxAdditions,
-    }
+    },
   ) {
     const data = this.getAllValues();
     const targetRow = data.findIndex((row) => row[0] === prevSheetId) + 2; //+2 since getAllValues() starts grabbing @ row 2
@@ -84,9 +84,9 @@ class TeacherDatabase {
         .getValue();
       const newData = [
         newSheetId,
-        formName.trim(),
-        room.trim(),
-        email.trim(),
+        formName ? formName.trim() : formName,
+        room ? room.trim() : room,
+        email ? email.trim() : email,
         automaticMode,
         substituteMode,
         maxAdditions,
@@ -119,7 +119,8 @@ class TeacherDatabase {
   changeCurrentStudent(formName, changeByVal) {
     const data = this.getAllValues();
     const rowData = this.getData(formName.trim());
-    const targetRow = data.findIndex((row) => row[1].trim() === formName.trim()) + 2; //+2 since getAllValues() starts grabbing @ row 2
+    const targetRow =
+      data.findIndex((row) => row[1].trim() === formName.trim()) + 2; //+2 since getAllValues() starts grabbing @ row 2
 
     if (targetRow >= 2 && rowData.length >= 8) {
       rowData[7] = rowData[7] + changeByVal;
