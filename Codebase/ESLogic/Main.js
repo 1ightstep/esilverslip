@@ -26,6 +26,13 @@ function onStudentSubmit(email, name, homeroom, destination, purpose) {
     homeTeacher: homeroomTeacher,
   };
 
+  //clean student data (removes =)
+  for (const key in studentBundle) {
+    if (typeof studentBundle[key] === 'string') {
+      studentBundle[key] = studentBundle[key].replaceAll('=', '');
+    }
+  }
+
   let alreadySubmit = ESGlobal.accessStudentDB().dataExists(email); //use data exists to ensure data exists, difficulty persists with getData
   if (alreadySubmit) {
     //prevents spam
