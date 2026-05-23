@@ -1,6 +1,6 @@
 function getTeacherDatabase(sheetName) {
   return SpreadsheetApp.openById(getTeacherDatabaseId()).getSheetByName(
-    sheetName
+    sheetName,
   );
 }
 function getTeacherDatabaseId() {
@@ -9,7 +9,7 @@ function getTeacherDatabaseId() {
 
 function getStudentDatabase(sheetName) {
   return SpreadsheetApp.openById(getStudentDatabaseId()).getSheetByName(
-    sheetName
+    sheetName,
   );
 }
 function getStudentDatabaseId() {
@@ -28,6 +28,13 @@ function getUpdaterTemplate() {
 }
 function getUpdaterTemplateId() {
   return "1wN5-i-UzlyMcVYJdpMeKPVdjDs7q8FciXdg3M2ny2lc";
+}
+
+function getAdminPanel() {
+  return SpreadsheetApp.openById(getAdminPanelId());
+}
+function getAdminPanelId() {
+  return "14qe3RiujI9elOgFWDwfvPlAYgpz-4JsC0dE1uudTJ-o";
 }
 
 function accessTeacherDB() {

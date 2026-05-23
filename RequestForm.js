@@ -38,28 +38,29 @@ function onSubmit(e) {
   }
 }
 
-function getTimeFrame() {
+function getTime() {
   const date = new Date();
   const day = date.getDay();
 
-  const hour = date.getHours(); 
+  const hour = date.getHours();
   const minute = date.getMinutes();
 
   return {
-    day: day, 
-    hour: hour, 
-    minute: minute
+    day: day,
+    hour: hour,
+    minute: minute,
   };
 }
 
 function autoOpen() {
   var mainForm = ESGlobal.getRequestForm();
-  if ((getTimeFrame().day == 2 || getTimeFrame().day == 4) && (getTimeFrame().hour >= 8 && getTimeFrame().hour <= 12)) {
-    if (getTimeFrame().hour == 12 && getTimeFrame().minute > 0) {
-      mainForm.setAcceptingResponses(false);
-      return;
-    }
+  const isETTime =
+    getTime().hour >= ESGlobal.getETTime().startHour &&
+    getTime() >= ESGlobal.getETTime().startMin &&
+    getTime().hour <= ESGlobal.getETTime().endHour &&
+    getTime() <= ESGlobal.getETTime().endMin;
 
+  if (ESGlobal.getETDays().includes(getTimeFrame().day) && isETTime) {
     mainForm.setAcceptingResponses(true);
   } else {
     mainForm.setAcceptingResponses(false);
