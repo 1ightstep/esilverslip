@@ -5,16 +5,16 @@ function initialize(formName, gmail) {
   Logger.log("Now cloning template/master spreadsheet.");
 
   try {
-    const newName = `Teacher Sheet - ${formName.trim()}`;
+    const newName = `Teacher Sheet - ${formName}`;
     const newSS = template.makeCopy(newName, targetFolder);
 
-    newSS.addEditor(gmail.trim());
-    ESGlobal.sendUpdateEmail(gmail.trim(), formName.trim(), newSS.getUrl());
+    newSS.addEditor(gmail);
+    ESGlobal.sendUpdateEmail(gmail, formName, newSS.getUrl());
   } catch {
-    Logger.log(`Error creating Teacher Sheet - ${formName.trim()}`);
+    Logger.log(`Error creating Teacher Sheet - ${formName}`);
   }
 
-  Logger.log(`Added Teacher Sheet - ${formName.trim()}`);
+  Logger.log(`Added Teacher Sheet - ${formName}`);
 }
 
 function onSubmit(e) {
@@ -30,5 +30,5 @@ function onSubmit(e) {
     if (question === "Gmail") gmail = answer;
   }
 
-  initialize(formName, gmail);
+  initialize(formName.trim(), gmail.trim());
 }
