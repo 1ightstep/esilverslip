@@ -39,4 +39,7 @@ It is used by 1,300+ students and 60+ teachers, handles 1,300+ pass requests eac
 
 ## Credits
 
-eSilverslip was co-founded and built by **Ryan** ([@1ightstep](https://github.com/1ightstep)) and **Eisen Hy** ([@EHy230](https://github.com/EHy230)). Along with building the system, Eisen led the rollout: meeting with teachers to learn what they needed, working with San Gabriel USD district IT on security rules and permissions, and training 60+ teachers to use it.
+eSilverslip was co-founded by **Ryan** ([@1ightstep](https://github.com/1ightstep)) and **Eisen Hy** ([@EHy230](https://github.com/EHy230)).
+
+- **Ryan** wrote the software in Google Apps Script and managed the project. He also met with teachers, worked with San Gabriel USD district IT on security rules and permissions, and trained teachers to use the system.
+- **Eisen** helped Ryan manage the project and took on a larger share of the rollout: meeting with teachers to learn what they needed, working with district IT, and training teachers. Together they trained 60+ teachers.
