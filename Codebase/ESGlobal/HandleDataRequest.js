@@ -24,6 +24,6 @@ function getListCount (sheet, date, teacherName, index) {
     // Sorts all the rows into a single array at the relevant index
     var selectedColumn = relevantSheet.map(row => row[index]);
     // Checks for the number of values which equal to teacherName
-    var incomingCount = selectedColumn.filter(value => value.trim() === teacherName.trim()).length;
+    var incomingCount = selectedColumn.filter(value => value.split(" @ ")[0].trim() === teacherName.trim()).length;
     return incomingCount;
 }
