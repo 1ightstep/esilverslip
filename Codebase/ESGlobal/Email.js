@@ -76,18 +76,18 @@ function sendUpdateEmail(recipientEmail, teacherName, newSSUrl) {
   );
 }
 
-// New addition, might need to add datetime later
-function teacherDataHTML(teacherName, dataRequested, studentsIncoming, studentsOutgoing) {
-  const template = HtmlService.createTemplateFromFile("TeacherData");
+function dataRequestHTML(teacherName, dataRequested, studentsIncoming, studentsOutgoing) {
+  const template = HtmlService.createTemplateFromFile("DataRequest");
   template.name = teacherName;
+  template.datetime = getDateTime();
   template.dateRequested = dataRequested;
   template.studentsIncoming = studentsIncoming;
   template.studentsOutgoing = studentsOutgoing;
 
   return template.evaluate().getContent();
 }
-function sendTeacherDataEmail(recipientEmail, teacherName, dataRequested, studentsIncoming, studentsOutgoing) {
-  const htmlBody = teacherDataHTML(teacherName, dataRequested, studentsIncoming, studentsOutgoing);
+function sendDataEmail(recipientEmail, teacherName, dataRequested, studentsIncoming, studentsOutgoing) {
+  const htmlBody = dataRequestHTML(teacherName, dataRequested, studentsIncoming, studentsOutgoing);
 
   GmailApp.sendEmail(
     recipientEmail,
