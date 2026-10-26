@@ -76,6 +76,29 @@ function sendUpdateEmail(recipientEmail, teacherName, newSSUrl) {
   );
 }
 
+// New addition, might need to add datetime later
+function teacherDataHTML(teacherName, dataRequested, studentsIncoming, studentsOutgoing) {
+  const template = HtmlService.createTemplateFromFile("TeacherData");
+  template.name = teacherName;
+  template.dateRequested = dataRequested;
+  template.studentsIncoming = studentsIncoming;
+  template.studentsOutgoing = studentsOutgoing;
+
+  return template.evaluate().getContent();
+}
+function sendTeacherDataEmail(recipientEmail, teacherName, dataRequested, studentsIncoming, studentsOutgoing) {
+  const htmlBody = teacherDataHTML(teacherName, dataRequested, studentsIncoming, studentsOutgoing);
+
+  GmailApp.sendEmail(
+    recipientEmail,
+    `Here is the latest data snapshot for your ET Sheet`,
+    "",
+    {
+      htmlBody: htmlBody,
+    }
+  );
+}
+
 function requestHTML(studentGmail, teacherGmail) {
   const template = HtmlService.createTemplateFromFile("Request");
   template.studentGmail = studentGmail;
