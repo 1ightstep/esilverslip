@@ -1,4 +1,6 @@
 function onSubmit(e) {
+  // Local accessor for studentdb
+  var studentSpreadsheet = SpreadsheetApp.openById(ESGlobal.getStudentDatabaseId());
   var formResponse = e.response;
   var itemResponses = formResponse.getItemResponses();
 
@@ -6,20 +8,10 @@ function onSubmit(e) {
   var dateRequested = itemResponses[0].getResponse();
   var teachersDataRequested = itemResponses[1].getResponse();
 
-  ESGlobal.sendTeacherDataEmail(recipientEmail,
-    ESGlobal.getTeacherName(recipientEmail),
+
+  ESGlobal.sendDataEmail(recipientEmail,
+    ESGlobal.findName(recipientEmail),
     dateRequested,
-    getListCount (sheetSelection(dateRequested), ESGlobal.getTeacherName(recipientEmail), 3), //incoming
-    getListCount (sheetSelection(dateRequested), ESGlobal.getTeacherName(recipientEmail), 2)); //outgoing
+    ESGlobal.getListCount (studentSpreadsheet,dateRequested, teachersDataRequested, 3), // Count for incoming
+    ESGlobal.getListCount (studentSpreadsheet, dateRequested, teachersDataRequested, 2)); // Count for outgoing
 }
-
-// Must be initialized with 10 current values to be recent
-// Assumes an array, if object then update accordingly (FIND OUT:
-// how to add an defined list of values to a dropdown in google forms, general ET form probably has it due to the teachers)
-// Descending order (oldest first) bc easiest
-function updateDateRanges(range, newestDate) {
-    return range.slice(1).concat(newestDate);
-}
-
-
-
