@@ -1,32 +1,29 @@
-// Variables = recipientEmail, dateRequested, teachersDataRequested
-// TO DO:
-// 1. Attach name to "recipientEmail" from teacherdb
-// 2. Fetch general data with date sorted from studentdb
-// 3. Filter data from studentdb by number outgoing/incoming requests relative to teacher
-// 4. Send email to recipientEmail with data attached
-// PS. Define dateRequested, studentIncoming, and studentOutgoing
+// accessTeacherDatabase() behaves weirdly, opted for normal approach
+var teacherSpreadsheet = SpreadsheetApp.openById(getTeacherDatabaseId());
+const teacherdb = teacherSpreadsheet.getSheetByName("db").getDataRange().getValues();
 
-// Teacher database only has db as the relevant sheet and thus can be accessed directly as so
-const teacherdb = SpreadsheetApp.openById(getTeacherDatabaseId()).getSheetByName("db").getValues();
-// Student database has the current data as db, with archive dates; must be accessed by date
-const studentdb = SpreadsheetApp.openById(getStudentDatabaseId());
-
+// Checks if recipientEmail is in the teacherdb, if not throw an error
 function findName(recipientEmail) {
-	// gimme email, use email to identify the row and then go from there
+  // The check, index = -1 if not found
     const teacherRow = teacherdb.findIndex(row => row[3] === recipientEmail);
-	const name = teacherdb[teacherRow][1];
+    var name;
+    // Conditional for sending or throwing an error
+    if (teacherRow !== -1) {
+        name = teacherdb[teacherRow][1];
+    }
+    else {
+      throw new Error("User isn't authorized to use this service.");
+    }
     return name;
-}
-
-function sheetSelection(givenDate) {
-    const relevantSheet = studentdb.getSheetByName(givenDate).getValues();
-    return relevantSheet;
 }
 
 // Index 2 is homeroom, index 3 is destination
 // In this case, count homeroom for outgoing and destination for incoming
-function getListCount (sheet, teacherName, index) {
-    var selectedColumn = sheet.map(row => row[index]);
+function getListCount (sheet, date, teacherName, index) {
+    var relevantSheet = sheet.getSheetByName(date).getDataRange().getValues();
+    // Sorts all the rows into a single array at the relevant index
+    var selectedColumn = relevantSheet.map(row => row[index]);
+    // Checks for the number of values which equal to teacherName
     var incomingCount = selectedColumn.filter(value => value.trim() === teacherName.trim()).length;
     return incomingCount;
 }
