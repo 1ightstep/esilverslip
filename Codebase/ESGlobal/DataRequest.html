@@ -1,0 +1,68 @@
+<DOCTYPE! html />
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        padding: 1rem;
+        margin: 0;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .intro {
+        height: auto;
+        width: auto;
+      }
+      .intro h1 {
+        font-family: Helvetica, -apple-system;
+        font-weight: 200;
+      }
+      .info-container {
+        width: fit-content;
+        border: 1px solid rgb(0, 0, 0, 0.2);
+        padding: 2rem 5rem 2rem 5rem;
+        border-radius: 1rem;
+      }
+      .info {
+        height: 100%;
+        display: flex;
+      }
+      .info h1 {
+        font-size: 2rem;
+        font-family: Helvetica, -apple-system;
+        font-weight: 200;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="intro">
+      <h1>
+        Hello
+        <?= name ?>,<br />here is your requested data.
+      </h1>
+    </div>
+    <div class="info-container">
+        <!--New addition, configure data to make sheets-->
+      <div class="info">
+        <h1>
+          Data Snapshot: <br /> <br />
+          <span style="font-weight: 500">
+            For Date - <?= dateRequested ?> <br />
+            Student Count (Incoming) - <?= studentsIncoming ?> <br />
+            Student Count (Outgoing) - <?= studentsOutgoing ?> <br />
+          </span>
+        </h1>
+      </div>
+      <div class="info">
+        <h1>
+          Requested on date & time:
+          <span style="font-weight: 500">
+            <?= datetime ?>
+          </span>
+        </h1>
+      </div>
+    </div>
+  </body>
+</html>
