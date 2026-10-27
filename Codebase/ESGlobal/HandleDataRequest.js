@@ -27,3 +27,23 @@ function getListCount (sheet, date, teacherName, index) {
     var incomingCount = selectedColumn.filter(value => value.split(" @ ")[0].trim() === teacherName.trim()).length;
     return incomingCount;
 }
+
+function getStudents (sheet, date, teacherName, index) {
+    var relevantSheet = sheet.getSheetByName(date).getDataRange().getValues();
+    // Similar start to getListCount
+    var selectedColumn = relevantSheet.map(row => row[index]);
+    // Sorts for the indices of all the matching teacherNames
+    var selectedIndexes = selectedColumn.map((value, index) =>
+      // Two arguments, the ? operator is an inline conditional function, as index is selected with the operator, index is returned
+      value.split(" @ ")[0].trim() === teacherName.trim() ? index: -1)
+      // Filters the array for all the indices that isn't -1
+    .filter(index => index !== -1);
+    // Populating
+    var uncleanedArray = [];
+    for (let i = 0; i < selectedIndexes.length; i++) {
+      uncleanedArray.push(selectedIndexes[i]);
+    }
+    // Cleaning array for output
+    var cleanedArray = uncleanedArray.join(", ");
+    return cleanedArray;
+}
