@@ -76,18 +76,20 @@ function sendUpdateEmail(recipientEmail, teacherName, newSSUrl) {
   );
 }
 
-function dataRequestHTML(teacherName, dataRequested, studentsIncoming, studentsOutgoing) {
+function dataRequestHTML(teacherName, dataRequested, studentsIncoming, studentsIncomingNames, studentsOutgoing, studentsOutgoingNames) {
   const template = HtmlService.createTemplateFromFile("DataRequest");
   template.name = teacherName;
   template.datetime = getDateTime();
   template.dateRequested = dataRequested;
   template.studentsIncoming = studentsIncoming;
+  template.studentsIncomingNames = studentsIncomingNames;
   template.studentsOutgoing = studentsOutgoing;
+  template.studentsOutgoingNames = studentsOutgoingNames;
 
   return template.evaluate().getContent();
 }
-function sendDataEmail(recipientEmail, teacherName, dataRequested, studentsIncoming, studentsOutgoing) {
-  const htmlBody = dataRequestHTML(teacherName, dataRequested, studentsIncoming, studentsOutgoing);
+function sendDataEmail(recipientEmail, teacherName, dataRequested, studentsIncoming, studentsIncomingNames, studentsOutgoing, studentsOutgoingNames) {
+  const htmlBody = dataRequestHTML(teacherName, dataRequested, studentsIncoming, studentsIncomingNames, studentsOutgoing, studentsOutgoingNames);
 
   GmailApp.sendEmail(
     recipientEmail,
