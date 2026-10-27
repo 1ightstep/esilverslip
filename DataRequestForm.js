@@ -13,5 +13,7 @@ function onSubmit(e) {
     ESGlobal.findName(recipientEmail),
     dateRequested,
     ESGlobal.getListCount (studentSpreadsheet,dateRequested, teachersDataRequested, 3), // Count for incoming
-    ESGlobal.getListCount (studentSpreadsheet, dateRequested, teachersDataRequested, 2)); // Count for outgoing
+    ESGlobal.getStudentNames(studentSpreadsheet,dateRequested, teachersDataRequested, 3), // Names for incoming
+    ESGlobal.getListCount (studentSpreadsheet, dateRequested, teachersDataRequested, 2), // Count for outgoing
+    ESGlobal.getStudentNames (studentSpreadsheet, dateRequested, teachersDataRequested, 2)); // Names for outgoing
 }
