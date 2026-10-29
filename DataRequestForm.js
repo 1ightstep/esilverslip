@@ -9,11 +9,12 @@ function onSubmit(e) {
   var teachersDataRequested = itemResponses[1].getResponse();
 
 
-  ESGlobal.sendDataEmail(recipientEmail,
+ ESGlobal.sendDataEmail(recipientEmail,
     ESGlobal.findName(recipientEmail),
     dateRequested,
+    teachersDataRequested,
     ESGlobal.getListCount (studentSpreadsheet,dateRequested, teachersDataRequested, 3), // Count for incoming
-    ESGlobal.getStudentNames(studentSpreadsheet,dateRequested, teachersDataRequested, 3), // Names for incoming
+    ESGlobal.getStudents(studentSpreadsheet,dateRequested, teachersDataRequested, 3), // Names for incoming
     ESGlobal.getListCount (studentSpreadsheet, dateRequested, teachersDataRequested, 2), // Count for outgoing
-    ESGlobal.getStudentNames (studentSpreadsheet, dateRequested, teachersDataRequested, 2)); // Names for outgoing
+    ESGlobal.getStudents(studentSpreadsheet, dateRequested, teachersDataRequested, 2)); // Names for outgoing
 }

@@ -41,7 +41,7 @@ function getStudents (sheet, date, teacherName, index) {
     // Populating
     var uncleanedArray = [];
     for (let i = 0; i < selectedIndexes.length; i++) {
-      uncleanedArray.push(selectedIndexes[i]);
+      uncleanedArray.push(relevantSheet[selectedIndexes[i]][1].trim());
     }
     // Cleaning array for output
     var cleanedArray = uncleanedArray.join(", ");
