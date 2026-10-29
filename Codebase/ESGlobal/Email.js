@@ -76,6 +76,32 @@ function sendUpdateEmail(recipientEmail, teacherName, newSSUrl) {
   );
 }
 
+function dataRequestHTML(teacherName, dateRequested, teacherRequested, studentsIncoming, studentsIncomingNames, studentsOutgoing, studentsOutgoingNames) {
+  const template = HtmlService.createTemplateFromFile("DataRequest");
+  template.name = teacherName;
+  template.dateRequested = dateRequested;
+  template.datetime = getDateTime();
+  template.teacherRequested = teacherRequested;
+  template.studentsIncoming = studentsIncoming;
+  template.studentsIncomingNames = studentsIncomingNames;
+  template.studentsOutgoing = studentsOutgoing;
+  template.studentsOutgoingNames = studentsOutgoingNames;
+
+  return template.evaluate().getContent();
+}
+function sendDataEmail(recipientEmail, teacherName, dateRequested, teacherRequested, studentsIncoming, studentsIncomingNames, studentsOutgoing, studentsOutgoingNames) {
+  const htmlBody = dataRequestHTML(teacherName, dateRequested, teacherRequested, studentsIncoming, studentsIncomingNames, studentsOutgoing, studentsOutgoingNames);
+
+  GmailApp.sendEmail(
+    recipientEmail,
+    `Here is the latest data snapshot for your ET Sheet`,
+    "",
+    {
+      htmlBody: htmlBody,
+    }
+  );
+}
+
 function requestHTML(studentGmail, teacherGmail) {
   const template = HtmlService.createTemplateFromFile("Request");
   template.studentGmail = studentGmail;
