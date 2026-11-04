@@ -28,6 +28,8 @@ function makeHistory() {
 
     const newSheet = ogSheet.copyTo(ss);
     newSheet.setName(sheetName);
+    ss.setActiveSheet(newSheet);
+    ss.moveActiveSheet(3);
 
     clearDB();
   }
