@@ -31,3 +31,43 @@ function sortTeachers() {
   // Sorts alphabetically, only accounts for uppercase
   dropdown.setChoiceValues(teacherList.sort());
 }
+
+// Recycled from studentDB
+function getDate() {
+  const date = new Date();
+  const formattedDate = date.toLocaleDateString("en-US");
+  return formattedDate;
+}
+
+// Recycled from studentDB
+function getDay() {
+  const date = new Date();
+  const day = date.getDay();
+  return day;
+}
+
+// New function that updates dates, derived from studentDB's makeHistory
+function updateDates() {
+  // Only updates on days which includes ET days
+  if (ESGlobal.getETDays().includes(getDay())) {
+    const form = FormApp.getActiveForm();
+
+    // Same logic as sortTeachers()
+    const dropdown = form.getItems(FormApp.ItemType.LIST)
+    .map(item => item.asListItem())
+    .find(item => item.getTitle() === "Date of Data");
+
+    // If the dropdown with the name is found then run this
+    if (dropdown) {
+      // Iterates the dropdown's values into a const called choices
+      const choices = dropdown.getChoices().map(choice => choice.getValue());
+      if (!choices.includes(getDate())) {
+        // Pushes new date & removes earliest date
+        choices.push(getDate());
+        const newChoices = choices.slice(1);
+        // Sets the new choices for the dropdown
+        dropdown.setChoiceValues(newChoices);
+      } 
+    }
+  }
+}
