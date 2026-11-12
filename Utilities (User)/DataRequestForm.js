@@ -18,3 +18,16 @@ function onSubmit(e) {
     ESGlobal.getListCount (studentSpreadsheet, dateRequested, teachersDataRequested, 2), // Count for outgoing
     ESGlobal.getStudents(studentSpreadsheet, dateRequested, teachersDataRequested, 2)); // Names for outgoing
 }
+
+// Sorts in ascending order (A-Z), accounts for capitalized only
+function sortTeachers() {
+  const form = FormApp.getActiveForm();
+  // Grabs the proper dropdown (by name) with the aggregated items in the form
+  const dropdown = form.getItems(FormApp.ItemType.LIST)
+    .map(item => item.asListItem())
+    .find(item => item.getTitle() === "Teacher Requested (choose whose data you want to access)");
+  // Converts all of the values in the dropdown into a list
+  const teacherList = dropdown.getChoices().map(choice => choice.getValue());
+  // Sorts alphabetically, only accounts for uppercase
+  dropdown.setChoiceValues(teacherList.sort());
+}
